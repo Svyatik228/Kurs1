@@ -22,23 +22,31 @@ public class FirstTest {
         driver.get("https://kurs.com.ua/?gclid=CjwKCAjwusrtBRBmEiwAGBPgEykQWUHf8iCg0rA7u21PGm596a7_gLKm9rdhu7vSgzSxMWeqN2MgIxoC0igQAvD_BwE");
         WebElement button_USD = driver.findElement(By.xpath(".//*[@id='elMainFormMenu']/../..//a[contains(text(),'USD')]"));
         button_USD.click();
-        Thread.sleep(2000);
+        Thread.sleep(5000);
         String l= driver.findElement(By.xpath(".//td[contains(@data-rate-type,'commercial')]/span[@class='ipsKurs_rate ipsResponsive_hidePhone']")).getText();
         System.out.println(l);
         driver.findElement(By.cssSelector("#elAmountFrom")).sendKeys("125");
      //   String result= driver.findElement(By.cssSelector("#elAmountTo")).getText();
        // String elementId;
-        Thread.sleep(2000);
+        Thread.sleep(5000);
         driver.findElement(By.id("elSourcesMenu")).click();
+        Thread.sleep(3000);
         driver.findElement(By.xpath(".//li[@class='ipsMenu_item']//span[contains(text(),'Коммерческий')]/..")).click();
-        Thread.sleep(2000);
-        JavascriptExecutor executor = (JavascriptExecutor)driver;
+        Thread.sleep(3000);
+       JavascriptExecutor executor = (JavascriptExecutor)driver;
         String jsStatement = "return document.getElementById('" + "elAmountTo" + "')." + "value" + ";";
         String res= (String) executor.executeScript(jsStatement);
+        String.format(".3f",res);
+       Assert.assertEquals(res,String.valueOf(getMultiply(l,"125")));
+       Thread.sleep(5000);
+       driver.quit();
         Assert.assertEquals(res,String.valueOf(getMultiply(l,"125")));
-    }
+
+
+}
 private double getMultiply(String k,String chyslo){
         return Double.parseDouble(k)*Double.parseDouble(chyslo);
+
 }
    /* @After
     public void after() {
